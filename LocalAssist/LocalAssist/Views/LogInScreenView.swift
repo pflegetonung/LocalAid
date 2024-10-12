@@ -20,16 +20,6 @@ struct LogInScreenView: View {
                 .foregroundColor(.black)
                 .ignoresSafeArea()
             
-            Rectangle()
-                .foregroundColor(.accentColor)
-                .opacity(0.05)
-                .ignoresSafeArea()
-            
-            Image("light")
-                .resizable()
-                .scaledToFit()
-                .ignoresSafeArea()
-            
             Image("star")
                 .resizable()
                 .scaledToFit()
@@ -41,16 +31,34 @@ struct LogInScreenView: View {
                         
                     }
                 } label: {
-                    ZStack {
-                        CustomBlur.Blur(style: .dark)
-                            .frame(width: 96, height: 32)
-                            .cornerRadius(16)
-                        
+                    if colorScheme == .light {
                         HStack {
                             Image(systemName: "arrow.left")
                             
                             Text("Back")
+                                .font(.montserrat(size: 16, weight: "Regular"))
                         }
+                        .fontWeight(.bold)
+                        .padding(8)
+                        .padding(.horizontal, 4)
+                        .background(
+                            CustomBlur.Blur(style: .extraLight)
+                        )
+                        .cornerRadius(64)
+                    } else {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            
+                            Text("Back")
+                                .font(.montserrat(size: 16, weight: "Regular"))
+                        }
+                        .fontWeight(.bold)
+                        .padding(8)
+                        .padding(.horizontal, 4)
+                        .background(
+                            CustomBlur.Blur(style: .extraLight)
+                        )
+                        .cornerRadius(64)
                     }
                 }
                 .padding()
@@ -59,17 +67,18 @@ struct LogInScreenView: View {
                 
                 Text("Get Started Now!")
                     .foregroundColor(.white)
-                    .font(.system(size: 32, weight: .bold))
+                    .font(.montserrat(size: 32, weight: "Bold"))
                     .padding()
                     .padding(.top, 64)
                 
                 Text("Create an account or login to your account")
+                    .font(.montserrat(size: 16, weight: "Regular"))
                     .foregroundColor(.white)
                     .padding(.horizontal)
                     .padding(.bottom, 64)
                 
                 ZStack {
-                    RoundedRectangle(cornerRadius: 24)
+                    RoundedRectangle(cornerRadius: 32)
                         .ignoresSafeArea()
                         .foregroundStyle(colorScheme == .dark ? Color(.systemGray6) : Color.white)
                         .frame(height: 400)
@@ -77,12 +86,13 @@ struct LogInScreenView: View {
                     VStack(spacing: 24) {
                         Text("Sign In")
                             .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
-                            .font(.system(size: 24, weight: .bold))
+                            .font(.montserrat(size: 24, weight: "Bold"))
                             .padding(.top)
                         
                         HStack {
                             Text("Don't have an account?")
                                 .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
+                                .font(.montserrat(size: 16, weight: "Regular"))
                             
                             Button {
                                 withAnimation {
@@ -90,6 +100,7 @@ struct LogInScreenView: View {
                                 }
                             } label: {
                                 Text("Sign Up")
+                                    .font(.montserrat(size: 16, weight: "Medium"))
                             }
                             .sheet(isPresented: $isSignUp) {
                                 SignUpView()
@@ -116,7 +127,8 @@ struct LogInScreenView: View {
                                     
                                     Text("Email")
                                         .foregroundColor(Color(.systemGray)
-                                            .opacity(0.5))
+                                        .opacity(0.5))
+                                        .font(.montserrat(size: 16, weight: "Regular"))
                                 }
                                 
                                 HStack {
@@ -126,13 +138,14 @@ struct LogInScreenView: View {
                                     
                                     Text("Password")
                                         .foregroundColor(Color(.systemGray)
-                                            .opacity(0.5))
+                                        .opacity(0.5))
+                                        .font(.montserrat(size: 16, weight: "Regular"))
                                     
                                     Spacer()
                                     
                                     Image(systemName: "eye.slash")
                                         .foregroundColor(Color(.systemGray)
-                                            .opacity(0.5))
+                                        .opacity(0.5))
                                 }
                             }
                             .padding()
@@ -145,6 +158,7 @@ struct LogInScreenView: View {
                             }
                         } label: {
                             Text("Forgot Your Password?")
+                                .font(.montserrat(size: 16, weight: "Regular"))
                                 .underline()
                         }
                         .sheet(isPresented: $isRestore) {
@@ -163,6 +177,7 @@ struct LogInScreenView: View {
                                         .frame(height: 48)
                                     
                                     Text("Log In")
+                                        .font(.montserrat(size: 16, weight: "Regular"))
                                         .foregroundColor(.white)
                                 }
                             }
