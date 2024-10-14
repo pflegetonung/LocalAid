@@ -14,4 +14,4 @@ With Local Assist, users can:
 
 Whether you want to volunteer occasionally or make it a part of your everyday life, Local Assist makes it easy to be an active and supportive member of your community. Join a growing network of local helpers and start making a difference today!
 
-![mckup](https://github.com/user-attachments/assets/3e979888-0497-4399-a049-1a7f559c9d2d)
+![Untitled 2](https://github.com/user-attachments/assets/3a89e1ce-0830-4c8a-b206-83f6d5eb16db)
