@@ -1,8 +1,8 @@
-# Local Assist Volunteer App
+# LocalAid Volunteer App
 
 Description:
 
-Local Assist is a community-driven platform that connects people in need of local assistance with volunteers willing to lend a helping hand. Whether it’s delivering groceries, providing home repairs, or simply offering companionship, this app brings neighbors together to make a positive impact in their communities.
+LocalAid is a community-driven platform that connects people in need of local assistance with volunteers willing to lend a helping hand. Whether it’s delivering groceries, providing home repairs, or simply offering companionship, this app brings neighbors together to make a positive impact in their communities.
 
 With Local Assist, users can:
 
