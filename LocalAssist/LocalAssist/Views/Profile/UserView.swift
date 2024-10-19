@@ -1,18 +1,18 @@
 //
-//  MessagesView.swift
+//  UserView.swift
 //  LocalAssist
 //
-//  Created by Phillip on 12.10.2024.
+//  Created by Phillip on 16.10.2024.
 //
 
 import SwiftUI
 
-struct MessagesView: View {
+struct UserView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    MessagesView()
+    UserView()
 }

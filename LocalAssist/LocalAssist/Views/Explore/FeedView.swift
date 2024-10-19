@@ -10,6 +10,11 @@ import SwiftUI
 struct FeedView: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @ObservedObject var eventViewModel = EventViewModel()
+    
+    @State private var isEventSheet = false
+    @State private var isNewEventSheet = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -36,10 +41,10 @@ struct FeedView: View {
                 
                 Button {
                     withAnimation {
-                        
+                        isNewEventSheet = true
                     }
                 } label: {
-                    Image("Add")
+                    Image(colorScheme == .light ? "Add" : "Addb")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 24)
@@ -47,9 +52,9 @@ struct FeedView: View {
             }
             .padding(.top, 16)
             
-            ForEach(0 ..< 5) { item in
+            ForEach(eventViewModel.events) { event in
                 VStack {
-                    ZStack {
+                    ZStack(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 16)
                             .frame(height: 200)
                             .foregroundColor(colorScheme == .dark ? .black : .white)
@@ -57,13 +62,18 @@ struct FeedView: View {
                         VStack(alignment: .leading) {
                             HStack {
                                 VStack(alignment: .leading) {
-                                    Text("Eco-Harvest")
+                                    Text(event.name)
                                         .font(.montserrat(size: 22, weight: "Semibold"))
+                                        .foregroundColor(colorScheme == .light ? .black : .white)
                                     
-                                    
-                                    Text("Fri, 10:00 AM - 12:00 PM")
+                                    Text(event.address)
                                         .font(.montserrat(size: 14, weight: "Regular"))
                                         .padding(.top, -16)
+                                        .foregroundColor(Color(.systemGray2))
+                                    
+                                    Text("DATE: REDO")
+                                        .font(.montserrat(size: 14, weight: "Regular"))
+                                        .padding(.top, -12)
                                         .foregroundColor(Color(.systemGray2))
                                 }
                                 
@@ -77,10 +87,10 @@ struct FeedView: View {
                                     .foregroundColor(Color(.systemGray5))
                             }
                             
-                            Text("Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos")
+                            Text(event.description)
+                                .foregroundColor(colorScheme == .light ? .black : .white)
                                 .font(.montserrat(size: 16, weight: "Regular"))
                                 .lineLimit(4)
-                                .padding(.top, 4)
                             
                             Spacer()
                             
@@ -93,10 +103,12 @@ struct FeedView: View {
                                     .shadow(color: Color(.systemGray), radius: 1)
                                     .padding(.trailing, 4)
                                 
-                                Text("National Park Service")
+                                Text(/*event.organizer ??*/ "")
+                                    .lineLimit(1)
                                     .font(.montserrat(size: 14, weight: "Semibold"))
+                                    .foregroundColor(colorScheme == .light ? .black : .white)
                                 
-                                Image("Verified")
+                                Image(colorScheme == .light ? "Verified" : "Verifiedb")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 16)
@@ -111,31 +123,72 @@ struct FeedView: View {
                         }
                         .padding()
                         
-                        Text("Pets")
-                            .fontWeight(.bold)
-                            .padding(8)
-                            .padding(.horizontal, 4)
-                            .background(
-                                ZStack(alignment: .top) {
-                                    Rectangle()
-                                        .foregroundColor(.accentColor)
-                                        .frame(height: 16)
-                                    
-                                    CustomBlur.Blur(style: .light)
-                                }
-                            )
-                            .cornerRadius(64)
-                            .offset(x: -130, y: -100)
+                        if colorScheme == .light {
+                            Text(event.category)
+                                .foregroundColor(colorScheme == .light ? .black : .white)
+                                .font(.montserrat(size: 14, weight: "Bold"))
+                                .padding(4)
+                                .padding(.horizontal, 4)
+                                .background(
+                                    CustomBlur.Blur(style: .extraLight)
+                                )
+                                .cornerRadius(64)
+                                .offset(y: -100)
+                                .padding(.leading, 16)
+                        } else {
+                            Text(event.category)
+                                .foregroundColor(colorScheme == .light ? .black : .white)
+                                .font(.montserrat(size: 14, weight: "Bold"))
+                                .padding(4)
+                                .padding(.horizontal, 4)
+                                .background(
+                                    CustomBlur.Blur(style: .dark)
+                                )
+                                .cornerRadius(64)
+                                .offset(y: -100)
+                                .padding(.leading, 16)
+                        }
                     }
                     .padding(.top)
                 }
             }
+            .onAppear {
+                eventViewModel.fetchEvents()
+            }
+        }
+        .sheet(isPresented: $isEventSheet) {
+            EventView()
+                .ignoresSafeArea()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .presentationCornerRadius(32)
+                .presentationBackground(content: {
+                    if colorScheme == .light {
+                        CustomBlur.Blur(style: .extraLight)
+                    } else {
+                        CustomBlur.Blur(style: .dark)
+                    }
+                })
+                .ignoresSafeArea()
+        }
+        .sheet(isPresented: $isNewEventSheet) {
+            NewEventView()
+                .ignoresSafeArea()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .presentationCornerRadius(32)
+                .presentationBackground(content: {
+                    if colorScheme == .light {
+                        CustomBlur.Blur(style: .extraLight)
+                    } else {
+                        CustomBlur.Blur(style: .dark)
+                    }
+                })
+                .ignoresSafeArea()
         }
     }
 }
 
 #Preview {
-    ExploreView()
+    FeedView()
 }
 
 struct SectionView: View {

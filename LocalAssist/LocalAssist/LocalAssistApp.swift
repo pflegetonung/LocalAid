@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct LocalAssistApp: App {
+    @StateObject var locationManager = LocationManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ExploreView()
+                .environmentObject(locationManager)
         }
     }
 }
