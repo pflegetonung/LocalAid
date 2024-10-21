@@ -54,7 +54,7 @@ struct CommunityGroupsListView: View {
                             
                             Spacer()
                             
-                            Text(group.location ?? "")
+                            Text("\(group.members.count) member(s)")
                                 .font(.montserrat(size: 14, weight: "Regular"))
                                 .foregroundColor(Color(.systemGray2))
                         }
